@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://686xmkelky0c"]
+
+[ext_resource type="Script" path="res://src/Game/game.gd" id="1_4m8km"]
+[ext_resource type="Script" path="res://src/Map/map.gd" id="3_3teb4"]
+[ext_resource type="Script" path="res://src/Game/event_handler.gd" id="3_sqluo"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_4m8km")
+
+[node name="EventHandler" type="Node" parent="."]
+script = ExtResource("3_sqluo")
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource("3_3teb4")
