@@ -26,3 +26,4 @@ is_blocking_movement = true
 type = 2
 fighter_definition = SubResource("Resource_irh4m")
 ai_type = 1
+inventory_capacity = 26

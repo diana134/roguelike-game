@@ -26,3 +26,4 @@ is_blocking_movement = null
 type = 2
 fighter_definition = SubResource("Resource_ea01e")
 ai_type = 1
+inventory_capacity = 0
