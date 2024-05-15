@@ -22,6 +22,7 @@ func _ready() -> void:
 		"Hello and welcome, adventurer, to yet another dungeon!",
 		GameColors.WELCOME_TEXT
 	).call_deferred()
+	camera.make_current.call_deferred()
 
 func _physics_process(_delta: float) -> void:
 	var action: Action = await input_handler.get_action(player)
