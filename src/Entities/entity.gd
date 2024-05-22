@@ -78,6 +78,10 @@ func _handle_consumable(consumable_definition: ConsumableComponentDefinition) ->
 		consumable_component = HealingConsumableComponent.new(consumable_definition)
 	elif consumable_definition is LightningDamageConsumableComponentDefinition:
 		consumable_component = LightningDamageConsumableComponent.new(consumable_definition)
+	elif consumable_definition is ConfusionConsumableComponentDefinition:
+		consumable_component = ConfusionConsumableComponent.new(consumable_definition)
+	elif consumable_definition is FireballDamageConsumableComponentDefinition:
+		consumable_component = FireballDamageConsumableComponent.new(consumable_definition)
 	
 	if consumable_component:
 		add_child(consumable_component)

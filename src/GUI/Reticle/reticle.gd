@@ -22,6 +22,7 @@ var grid_position: Vector2i:
 var map_data: MapData
 
 @onready var camera: Camera2D = $Camera2D
+@onready var border: Line2D = $Line2D
 
 func _ready() -> void:
 	hide()
@@ -33,6 +34,7 @@ func select_position(player: Entity, radius: int) -> Vector2i:
 	
 	var player_camera: Camera2D = get_viewport().get_camera_2d()
 	camera.make_current()
+	_setup_border(radius)
 	show()
 	await get_tree().physics_frame
 	set_physics_process.call_deferred(true)
@@ -59,3 +61,16 @@ func _physics_process(delta: float) -> void:
 		position_selected.emit(grid_position)
 	if Input.is_action_just_pressed("ui_back"):
 		position_selected.emit(Vector2i(-1, -1))
+		
+func _setup_border(radius: int) -> void:
+	if radius <= 0:
+		border.hide()
+	else:
+		border.points = [
+			Vector2i(-radius, -radius) * Grid.tile_size,
+			Vector2i(-radius, radius + 1) * Grid.tile_size,
+			Vector2i(radius + 1, radius + 1) * Grid.tile_size,
+			Vector2i(radius + 1, -radius) * Grid.tile_size,
+			Vector2i(-radius, -radius) * Grid.tile_size
+		]
+		border.show()

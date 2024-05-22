@@ -57,3 +57,8 @@ autoplay = "pulse"
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 process_callback = 0
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+end_cap_mode = 1
