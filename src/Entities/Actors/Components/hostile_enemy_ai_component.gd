@@ -26,3 +26,6 @@ func perform() -> void:
 		return MovementAction.new(entity, move_offset.x, move_offset.y).perform()
 	
 	return WaitAction.new(entity).perform()
+
+func get_save_data() -> Dictionary:
+	return {"type": "HostileEnemyAI"}

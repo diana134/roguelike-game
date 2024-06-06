@@ -29,3 +29,12 @@ func update_fov(player_position: Vector2i) -> void:
 func _place_entities() -> void:
 	for entity in map_data.entities:
 		entities.add_child(entity)
+
+func load_game(player: Entity) -> bool:
+	map_data = MapData.new(0, 0, player)
+	map_data.entity_placed.connect(entities.add_child)
+	if not map_data.load_game():
+		return false
+	_place_tiles()
+	_place_entities()
+	return true

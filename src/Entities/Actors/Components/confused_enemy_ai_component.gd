@@ -29,3 +29,9 @@ func perform() -> void:
 		].pick_random()
 		turns_remaining -= 1
 		return BumpAction.new(entity, direction.x, direction.y).perform()
+
+func get_save_data() -> Dictionary:
+	return {
+		"type": "ConfusedEnemyAI",
+		"turns_remaining": turns_remaining
+	}

@@ -3,11 +3,6 @@ extends RefCounted
 
 signal entity_placed(entity)
 
-const tile_types = {
-	"floor": preload("res://assets/definitions/tiles/tile_definition_floor.tres"),
-	"wall": preload("res://assets/definitions/tiles/tile_definition_wall.tres"),
-}
-
 const entity_pathfinding_weight = 10.0
 
 var width: int
@@ -29,7 +24,7 @@ func _setup_tiles() -> void:
 	for y in height:
 		for x in width:
 			var tile_position := Vector2i(x, y)
-			var tile := Tile.new(tile_position, tile_types.wall)
+			var tile := Tile.new(tile_position, "wall")
 			tiles.append(tile)
 
 func get_tile(grid_position: Vector2i) -> Tile:
@@ -99,3 +94,54 @@ func get_items() -> Array[Entity]:
 		if entity.consumable_component != null:
 			items.append(entity)
 	return items
+
+func get_save_data() -> Dictionary:
+	var save_data := {
+		"width": width,
+		"height": height,
+		"player": player.get_save_data(),
+		"entities": [],
+		"tiles": []
+	}
+	for entity in entities:
+		if entity == player:
+			continue
+		save_data["entities"].append(entity.get_save_data())
+	for tile in tiles:
+		save_data["tiles"].append(tile.get_save_data())
+	return save_data
+	
+func restore(save_data: Dictionary) -> void:
+	width = save_data["width"]
+	height = save_data["height"]
+	_setup_tiles()
+	for i in tiles.size():
+		tiles[i].restore(save_data["tiles"][i])
+	setup_pathfinding()
+	player.restore(save_data["player"])
+	player.map_data = self
+	entities = [player]
+	for entity_data in save_data["entities"]:
+		var new_entity := Entity.new(self, Vector2i.ZERO, "")
+		new_entity.restore(entity_data)
+		entities.append(new_entity)
+
+func save() -> void:
+	var file = FileAccess.open("user://save_game.dat", FileAccess.WRITE)
+	var save_data: Dictionary = get_save_data()
+	var save_string: String = JSON.stringify(save_data)
+	var save_hash: String = save_string.sha256_text()
+	file.store_line(save_hash)
+	file.store_line(save_string)
+	
+func load_game() -> bool:
+	var file = FileAccess.open("user://save_game.dat", FileAccess.READ)
+	var retrieved_hash: String = file.get_line()
+	var save_string: String = file.get_line()
+	var calculated_hash: String = save_string.sha256_text()
+	var valid_hash: bool = retrieved_hash == calculated_hash
+	if not valid_hash:
+		return false
+	var save_data: Dictionary = JSON.parse_string(save_string)
+	restore(save_data)
+	return true
