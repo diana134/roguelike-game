@@ -30,11 +30,13 @@ func _carve_room(dungeon: MapData, room: Rect2i) -> void:
 		for x in range(inner.position.x, inner.end.x + 1):
 			_carve_tile(dungeon, x, y)
 
-func generate_dungeon(player: Entity) -> MapData:
+func generate_dungeon(player: Entity, current_floor: int) -> MapData:
 	var dungeon := MapData.new(map_width, map_height, player)
+	dungeon.current_floor = current_floor
 	dungeon.entities.append(player)
 
 	var rooms: Array[Rect2i] = []
+	var center_last_room: Vector2i
 	
 	for _try_room in max_rooms:
 		var room_width: int = _rng.randi_range(room_min_size, room_max_size)
@@ -55,6 +57,7 @@ func generate_dungeon(player: Entity) -> MapData:
 			continue
 		
 		_carve_room(dungeon, new_room)
+		center_last_room = new_room.get_center()
 		
 		if rooms.is_empty():
 			player.grid_position = new_room.get_center()
@@ -64,6 +67,10 @@ func generate_dungeon(player: Entity) -> MapData:
 		
 		_place_entities(dungeon, new_room)
 		rooms.append(new_room)
+		
+	dungeon.down_stairs_location = center_last_room
+	var down_tile: Tile = dungeon.get_tile(center_last_room)
+	down_tile.set_tile_type("down_stairs")
 	
 	dungeon.setup_pathfinding()
 	return dungeon

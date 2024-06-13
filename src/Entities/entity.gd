@@ -24,6 +24,10 @@ var inventory_component: InventoryComponent
 var _definition: EntityDefinition
 var entity_name: String
 var blocks_movement: bool
+var type: EntityType:
+	set(value):
+		type = value
+		z_index = type
 var map_data: MapData
 
 var grid_position: Vector2i:
@@ -47,6 +51,7 @@ func set_entity_type(key: String) -> void:
 	self.key = key
 	var entity_definition: EntityDefinition = load(entity_types[key])
 	_definition = entity_definition
+	type = _definition.type
 	blocks_movement = _definition.is_blocking_movement
 	entity_name = _definition.name
 	texture = entity_definition.texture

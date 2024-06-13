@@ -10,7 +10,6 @@ const multipliers = [
 
 var _fov: Array[Tile] = []
 
-
 func update_fov(map_data: MapData, origin: Vector2i, radius: int) -> void:
 	_clear_fov()
 	var start_tile: Tile = map_data.get_tile(origin)
@@ -19,12 +18,10 @@ func update_fov(map_data: MapData, origin: Vector2i, radius: int) -> void:
 	for i in 8:
 		_cast_light(map_data, origin.x, origin.y, radius, 1, 1.0, 0.0, multipliers[0][i], multipliers[1][i], multipliers[2][i], multipliers[3][i])
 
-
 func _clear_fov() -> void:
 	for tile in _fov:
 		tile.is_in_view = false
 	_fov = []
-
 
 func _cast_light(map_data: MapData, x: int, y: int, radius: int, row: int, start_slope: float, end_slope: float, xx: int, xy: int, yx: int, yy: int) -> void:
 	if start_slope < end_slope:
@@ -66,3 +63,6 @@ func _cast_light(map_data: MapData, x: int, y: int, radius: int, row: int, start
 				_cast_light(map_data, x, y, radius, i + 1, start_slope, l_slope, xx, xy, yx, yy)
 		if blocked:
 			break
+
+func reset_fov() -> void:
+	_fov = []

@@ -10,6 +10,9 @@ var height: int
 var tiles: Array[Tile]
 var entities: Array[Entity]
 var player: Entity
+var down_stairs_location: Vector2i
+var current_floor: int = 0
+
 var pathfinder: AStarGrid2D
 
 func _init(map_width: int, map_height: int, map_player: Entity) -> void:
@@ -101,7 +104,9 @@ func get_save_data() -> Dictionary:
 		"height": height,
 		"player": player.get_save_data(),
 		"entities": [],
-		"tiles": []
+		"tiles": [],
+		"current_floor": current_floor,
+		"down_stairs_location": {"x": down_stairs_location.x, "y": down_stairs_location.y},
 	}
 	for entity in entities:
 		if entity == player:
@@ -114,6 +119,8 @@ func get_save_data() -> Dictionary:
 func restore(save_data: Dictionary) -> void:
 	width = save_data["width"]
 	height = save_data["height"]
+	down_stairs_location = Vector2i(save_data["down_stairs_location"]["x"], save_data["down_stairs_location"]["y"])
+	current_floor = save_data["current_floor"]
 	_setup_tiles()
 	for i in tiles.size():
 		tiles[i].restore(save_data["tiles"][i])

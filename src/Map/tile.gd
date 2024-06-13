@@ -4,6 +4,7 @@ extends Sprite2D
 const tile_types = {
 	"floor": preload("res://assets/definitions/tiles/tile_definition_floor.tres"),
 	"wall": preload("res://assets/definitions/tiles/tile_definition_wall.tres"),
+	"down_stairs": preload("res://assets/definitions/tiles/tile_definition_down_stairs.tres"),
 }
 
 var key: String

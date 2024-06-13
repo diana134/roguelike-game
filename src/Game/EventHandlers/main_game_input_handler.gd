@@ -44,6 +44,9 @@ func get_action(player: Entity) -> Action:
 		
 	if Input.is_action_just_pressed("look"):
 		await get_grid_position(player, 0)
+		
+	if Input.is_action_just_pressed("descend"):
+		action = TakeStairsAction.new(player)
 	
 	return action
 
