@@ -15,3 +15,4 @@ extends Resource
 @export var ai_type: Entity.AIType
 @export var consumable_definition: ConsumableComponentDefinition
 @export var inventory_capacity: int = 0
+@export var level_info: LevelComponentDefinition

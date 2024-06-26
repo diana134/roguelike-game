@@ -28,7 +28,7 @@ func _init(definition: FighterComponentDefinition) -> void:
 	death_texture = definition.death_texture
 	death_color = definition.death_color
 
-func die(log_message := true) -> void:
+func die(trigger_side_effects := true) -> void:
 	var death_message: String
 	var death_message_color: Color
 	
@@ -40,8 +40,9 @@ func die(log_message := true) -> void:
 		death_message = "%s is dead!" % entity.get_entity_name()
 		death_message_color = GameColors.ENEMY_DIE
 	
-	if log_message:
+	if trigger_side_effects:
 		MessageLog.send_message(death_message, death_message_color)
+		get_map_data().player.level_component.add_xp(entity.level_component.xp_given)
 	entity.texture = death_texture
 	entity.modulate = death_color
 	entity.ai_component.queue_free()
@@ -50,6 +51,7 @@ func die(log_message := true) -> void:
 	entity.blocks_movement = false
 	get_map_data().unregister_blocking_entity(entity)
 	entity.type = Entity.EntityType.CORPSE
+	get_map_data().unregister_blocking_entity(entity)
 
 func heal(amount: int) -> int:
 	if hp == max_hp:

@@ -20,6 +20,7 @@ var fighter_component: FighterComponent
 var ai_component: BaseAIComponent
 var consumable_component: ConsumableComponent
 var inventory_component: InventoryComponent
+var level_component: LevelComponent
 
 var _definition: EntityDefinition
 var entity_name: String
@@ -72,6 +73,10 @@ func set_entity_type(key: String) -> void:
 	if entity_definition.inventory_capacity > 0:
 		inventory_component = InventoryComponent.new(entity_definition.inventory_capacity)
 		add_child(inventory_component)
+		
+	if entity_definition.level_info:
+		level_component = LevelComponent.new(entity_definition.level_info)
+		add_child(level_component)
 
 func is_blocking_movement() -> bool:
 	return blocks_movement
@@ -112,6 +117,8 @@ func get_save_data() -> Dictionary:
 		save_data["ai_component"] = ai_component.get_save_data()
 	if inventory_component:
 		save_data["inventory_component"] = inventory_component.get_save_data()
+	if level_component:
+		save_data["level_component"] = level_component.get_save_data()
 	return save_data
 
 func restore(save_data: Dictionary) -> void:
@@ -126,3 +133,5 @@ func restore(save_data: Dictionary) -> void:
 			add_child(confused_enemy_ai)
 	if inventory_component and save_data.has("inventory_component"):
 		inventory_component.restore(save_data["inventory_component"])
+	if level_component and save_data.has("level_component"):
+		level_component.restore(save_data["level_component"])

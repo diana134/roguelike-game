@@ -116,7 +116,7 @@ func _place_entities(dungeon: MapData, room: Rect2i) -> void:
 			var enemy_chance: float = _rng.randf()
 			var new_entity: Entity
 			
-			if entity_chance < 0.6:
+			if entity_chance < 0.8:
 				if enemy_chance < 0.8:
 					new_entity = Entity.new(dungeon, new_entity_position, "orc")
 				else:
