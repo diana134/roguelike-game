@@ -94,7 +94,7 @@ func get_actor_at_location(location: Vector2i) -> Entity:
 func get_items() -> Array[Entity]:
 	var items: Array[Entity] = []
 	for entity in entities:
-		if entity.consumable_component != null:
+		if entity.consumable_component != null or entity.equippable_component != null:
 			items.append(entity)
 	return items
 

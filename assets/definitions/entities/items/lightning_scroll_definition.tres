@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/lightning_damage_consumable_component_definition.gd" id="1_xux0c"]
 [ext_resource type="Texture2D" uid="uid://3ftc3ebb65od" path="res://assets/kenney_1-bit-pack/Tilesheet/monochrome_packed.png" id="3_fip0s"]
 
-[sub_resource type="Resource" id="Resource_eq2m0"]
+[sub_resource type="Resource" id="Resource_b5qmk"]
 script = ExtResource("1_xux0c")
 damage = 20
 maximum_range = 5
@@ -21,5 +21,5 @@ color = Color(1, 1, 0, 1)
 is_blocking_movement = false
 type = 1
 ai_type = 0
-consumable_definition = SubResource("Resource_eq2m0")
+item_definition = SubResource("Resource_b5qmk")
 inventory_capacity = 0

@@ -48,14 +48,14 @@ func increase_max_hp(amount: int = 20) -> void:
 
 func increase_power(amount: int = 1) -> void:
 	var fighter: FighterComponent = entity.fighter_component
-	fighter.power += amount
+	fighter.base_power += amount
 	
 	MessageLog.send_message("You feel stronger!", Color.WHITE)
 	increase_level()
 
 func increase_defense(amount: int = 1) -> void:
 	var fighter: FighterComponent = entity.fighter_component
-	fighter.defense += amount
+	fighter.base_defense += amount
 	
 	MessageLog.send_message("Your movements are getting swifter!", Color.WHITE)
 	increase_level()

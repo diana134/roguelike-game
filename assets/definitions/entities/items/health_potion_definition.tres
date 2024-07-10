@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_sx61x"]
 [ext_resource type="Texture2D" uid="uid://3ftc3ebb65od" path="res://assets/kenney_1-bit-pack/Tilesheet/monochrome_packed.png" id="3_rpin5"]
 
-[sub_resource type="Resource" id="Resource_aotfr"]
+[sub_resource type="Resource" id="Resource_2s441"]
 script = ExtResource("1_7rpio")
 healing_amount = 4
 
@@ -20,5 +20,6 @@ color = Color(0.917647, 0, 1, 1)
 is_blocking_movement = false
 type = 1
 ai_type = 0
-consumable_definition = SubResource("Resource_aotfr")
+item_definition = SubResource("Resource_2s441")
 inventory_capacity = 0
+has_equipment = false

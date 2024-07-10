@@ -15,10 +15,12 @@ func button_pressed(item: Entity = null) -> void:
 	item_selected.emit(item)
 	queue_free()
 
-func _register_item(index: int, item: Entity) -> void:
+func _register_item(index: int, item: Entity, is_equipped: bool) -> void:
 	var item_button: Button = inventory_menu_item_scene.instantiate()
 	var char: String = String.chr("a".unicode_at(0) + index)
 	item_button.text = "( %s ) %s" % [char, item.get_entity_name()]
+	if is_equipped:
+		item_button.text += " (E)"
 	var shortcut_event := InputEventKey.new()
 	shortcut_event.keycode = KEY_A + index
 	item_button.shortcut = Shortcut.new()
@@ -31,9 +33,12 @@ func build(title_text: String, inventory: InventoryComponent) -> void:
 		button_pressed.call_deferred()
 		MessageLog.send_message("No items in inventory.", GameColors.IMPOSSIBLE)
 		return
+	var equipment: EquipmentComponent = inventory.entity.equipment_component
 	title_label.text = title_text
 	for i in inventory.items.size():
-		_register_item(i, inventory.items[i])
+		var item: Entity = inventory.items[i]
+		var is_equipped: bool = equipment.is_item_equipped(item)
+		_register_item(i, item, is_equipped)
 	inventory_list.get_child(0).grab_focus()
 	show()
 	

@@ -14,8 +14,14 @@ var hp: int:
 				die_silently = true
 				await ready
 			die(not die_silently)
-var defense: int
-var power: int
+var base_defense: int
+var base_power: int
+var defense: int: 
+	get:
+		return base_defense + get_defense_bonus()
+var power: int: 
+	get:
+		return base_power + get_power_bonus()
 
 var death_texture: Texture
 var death_color: Color
@@ -23,8 +29,8 @@ var death_color: Color
 func _init(definition: FighterComponentDefinition) -> void:
 	max_hp = definition.max_hp
 	hp = definition.max_hp
-	defense = definition.defense
-	power = definition.power
+	base_defense = definition.defense
+	base_power = definition.power
 	death_texture = definition.death_texture
 	death_color = definition.death_color
 
@@ -73,12 +79,22 @@ func get_save_data() -> Dictionary:
 	return {
 		"max_hp": max_hp,
 		"hp": hp,
-		"power": power,
-		"defense": defense
+		"power": base_power,
+		"defense": base_defense
 	}
+	
+func get_defense_bonus() -> int:
+	if entity.equipment_component:
+		return entity.equipment_component.get_defense_bonus()
+	return 0
+
+func get_power_bonus() -> int:
+	if entity.equipment_component:
+		return entity.equipment_component.get_power_bonus()
+	return 0
 
 func restore(save_data: Dictionary) -> void:
 	max_hp = save_data["max_hp"]
 	hp = save_data["hp"]
-	power = save_data["power"]
-	defense = save_data["defense"]
+	base_power = save_data["power"]
+	base_defense = save_data["defense"]

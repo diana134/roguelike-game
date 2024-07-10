@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fireball_damage_consumable_component_definition.gd" id="1_6ws33"]
 [ext_resource type="Texture2D" uid="uid://3ftc3ebb65od" path="res://assets/kenney_1-bit-pack/Tilesheet/monochrome_packed.png" id="3_u3xro"]
 
-[sub_resource type="Resource" id="Resource_1mv1o"]
+[sub_resource type="Resource" id="Resource_e1jrc"]
 script = ExtResource("1_6ws33")
 damage = 12
 radius = 3
@@ -21,5 +21,6 @@ color = Color(1, 0, 0, 1)
 is_blocking_movement = false
 type = 1
 ai_type = 0
-consumable_definition = SubResource("Resource_1mv1o")
+item_definition = SubResource("Resource_e1jrc")
 inventory_capacity = 0
+has_equipment = false

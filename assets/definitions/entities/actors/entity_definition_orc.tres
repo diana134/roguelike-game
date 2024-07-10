@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dkpih5iiln8hr" path="res://assets/resources/default_death_texture.tres" id="1_lvf0u"]
 [ext_resource type="Script" path="res://src/Entities/entity_definition.gd" id="1_os5oh"]
-[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/figher_component_definition.gd" id="1_ylgi0"]
+[ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/fighter_component_definition.gd" id="1_ylgi0"]
 [ext_resource type="Texture2D" uid="uid://3ftc3ebb65od" path="res://assets/kenney_1-bit-pack/Tilesheet/monochrome_packed.png" id="2_d4vut"]
 [ext_resource type="Script" path="res://src/Entities/Actors/Components/ComponentDefinitions/level_component_definition.gd" id="3_ms5xb"]
 
@@ -35,3 +35,4 @@ fighter_definition = SubResource("Resource_ea01e")
 ai_type = 1
 inventory_capacity = 0
 level_info = SubResource("Resource_klm6s")
+has_equipment = false
